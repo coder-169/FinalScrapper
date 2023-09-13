@@ -16,16 +16,27 @@ export async function POST(req, res) {
             body: JSON.stringify(body)
         })
         const data = await res.json()
-        await dbConnect()
-        const job = await Job.create(data.job)
-        console.log(job)
-        return NextResponse.json({
-            message: "job created successfully!",
-            job: data.job,
-            success: true,
-        }, {
-            status: 200
-        })
+        if(res.ok){
+            console.log('Ok')
+            await dbConnect()
+            const job = await Job.create(data.job)
+            return NextResponse.json({
+                message: "job created successfully!",
+                job: data.job,
+                success: true,
+            }, {
+                status: 200
+            })
+        }else{
+            return NextResponse.json({
+                message: "some error occurred!",
+                job: data.job,
+                success: true,
+            }, {
+                status: 200
+            })
+        }
+        
 
 
     } catch (e) {
@@ -48,6 +59,7 @@ export async function GET(req, res) {
             },
         })
         const d = await res.json()
+        console.log(d)
         if (data)
             return NextResponse.json({
                 message: "job found successfully!",
