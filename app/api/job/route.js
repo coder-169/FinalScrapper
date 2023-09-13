@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
+import Job from "@/models/Job";
+import dbConnect from "@/utils/db";
 
 
 export async function POST(req, res) {
@@ -14,6 +16,9 @@ export async function POST(req, res) {
             body: JSON.stringify(body)
         })
         const data = await res.json()
+        await dbConnect()
+        const job = await Job.create(data.job)
+        console.log(job)
         return NextResponse.json({
             message: "job created successfully!",
             job: data.job,
@@ -34,7 +39,10 @@ export async function GET(req, res) {
     try {
         const headersList = headers();
         const id = headersList.get('id');
-        // console.log(id)
+        const data = headersList.get('data');
+        
+        console.log(id)
+
         const res = await fetch(`https://botster.io/api/v2/jobs/${id}`, {
             method: "GET",
             headers: {
@@ -43,6 +51,15 @@ export async function GET(req, res) {
             },
         })
         const d = await res.json()
+        console.log(data,d)
+        if (data)
+            return NextResponse.json({
+                message: "job found successfully!",
+                job:d.job,
+                success: true,
+            }, {
+                status: 200
+            })
         // console.log(data)
         const resp = await fetch(d.job.runs[0].url, {
             method: "GET",
@@ -51,11 +68,11 @@ export async function GET(req, res) {
                 'Authorization': 'Bearer ' + process.env.BEARER_TOKEN,
             },
         })
-        const data = await resp.json()
-        console.log(data)
+        const dt = await resp.json()
+        console.log(dt)
         return NextResponse.json({
             message: "job found successfully!",
-            data,
+            data:dt,
             success: true,
         }, {
             status: 200

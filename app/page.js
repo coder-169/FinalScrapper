@@ -25,7 +25,7 @@ export default function Home() {
     recommendations_: "",
     related_profiles_: "",
     languages_profile_: "",
-    volunteer_experiences_: "", position_groups: 0
+    volunteer_experiences_: "", position_groups: ""
   })
   const [timer, setTimer] = useState(45)
   // create JOB
@@ -54,7 +54,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: job.jobName || "No Name", input: arr, scrape_options, position_groups: 20 })
+        body: JSON.stringify({ name: job.jobName || "No Name", input: arr, scrape_options, position_groups:20 })
       })
       const d = await res.json()
       console.log(d)
@@ -101,7 +101,7 @@ export default function Home() {
       recommendations_: "",
       related_profiles_: "",
       languages_profile_: "",
-      volunteer_experiences_: "", position_groups: 0
+      volunteer_experiences_: "", position_groups: 20
     })
 
   }
@@ -181,12 +181,12 @@ export default function Home() {
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
                   <h2 htmlFor="about" className="text-base font-semibold leading-7 text-gray-900">   Jobs (Experiences)</h2>
                   <div className="flex items-center gap-x-3">
-                    <input id="push-email" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
+                    <input id="p_0" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
                     <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-500">Most recent only</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="push-email" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-500">Five recent experiences</label>
+                    <input id="position_groups" name="position_groups" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
+                    <label htmlFor="position_groups" className="block text-sm font-medium leading-6 text-gray-500">Five recent experiences</label>
                   </div>
                   <div className="flex items-center gap-x-3">
                     <input id="push-email" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />

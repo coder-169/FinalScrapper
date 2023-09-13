@@ -47,7 +47,8 @@ const Page = () => {
                     </div>
                     <div className="flex flex-wrap -m-4 items-start justify-start">
                         {jobs && jobs.length <= 0 ? <h2>No Jobs Found</h2> : jobs?.map(j => {
-                            return <JobCard key={j.id} id={j.id} name={j.name} botName={j.bot.name} status={j.state} />
+                            console.log(j)
+                            return <JobCard key={j.id} id={j.id} />
                         })}
                     </div>
                 </div>
