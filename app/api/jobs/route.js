@@ -5,12 +5,12 @@ export async function GET(req, res) {
         const res = await fetch('https://botster.io/api/v2/jobs', {
             method: 'GET',
             headers: {
+                "Accept":"*/*",
                 'Authorization': 'Bearer ' + process.env.BEARER_TOKEN,
                 'Content-Type': 'application/json'
             }
         })
         const data = await res.json()
-        console.log(data)
         return NextResponse.json({
             message: "jobs found successfully!",
             success: true,
@@ -22,7 +22,7 @@ export async function GET(req, res) {
 
     } catch (e) {
         return NextResponse.json(
-            { success: true, message: "Server error, please try again!" },
+            { success: true, message: e.message},
             { status: 500 }
         )
     }

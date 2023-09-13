@@ -14,7 +14,6 @@ export async function POST(req, res) {
             body: JSON.stringify(body)
         })
         const data = await res.json()
-        console.log(data)
         return NextResponse.json({
             message: "job created successfully!",
             job: data.job,
@@ -26,7 +25,7 @@ export async function POST(req, res) {
 
     } catch (e) {
         return NextResponse.json(
-            { success: true, message: "Server error, please try again!" },
+            { success: true, message: e.message },
             { status: 500 }
         )
     }

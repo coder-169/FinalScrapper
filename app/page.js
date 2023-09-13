@@ -60,17 +60,17 @@ export default function Home() {
       console.log(d)
       if (d.success) {
 
-        if (!d.job.finished) {
-          console.log('not finished')
-          setTimeout(() => {
-            router.push('/jobs')
-            setLoading(false)
-          }, 45000);
-        }
-        else {
+        // if (!d.job.finished) {
+        //   console.log('not finished')
+        //   setTimeout(() => {
+        //     router.push('/jobs')
+        //     setLoading(false)
+        //   }, 45000);
+        // }
+        // else {
           router.push('/jobs')
           setLoading(false)
-        }
+        // }
       }
     } catch (error) {
       alert(error.message)
@@ -126,18 +126,18 @@ export default function Home() {
   }
   useEffect(() => {
     getCredits()
-    if (loading) {
-      const countdown = setInterval(() => {
-        // Decrement the timer by 1 second
-        if (timer >= 1) {
-          setTimer((prevTimer) => prevTimer - 1);
-        }
-      }, 1000); // Update every 1000 milliseconds (1 second)
+    // if (loading) {
+    //   const countdown = setInterval(() => {
+    //     // Decrement the timer by 1 second
+    //     if (timer >= 1) {
+    //       setTimer((prevTimer) => prevTimer - 1);
+    //     }
+    //   }, 1000); // Update every 1000 milliseconds (1 second)
 
       // Clean up the interval when the component unmounts
-      return () => clearInterval(countdown);
-    }
-  }, [loading, timer])
+      // return () => clearInterval(countdown);
+    // }
+  }, [])
   return (
     <main className="w-11/12 sm:w-3/4 mx-auto my-8">
       <div className="flex justify-between">
@@ -157,7 +157,7 @@ export default function Home() {
         <div className="container px-5 py-16 mx-auto">
           <div className="flex flex-wrap -m-4">
             <div className="md:w-2/3 flex flex-col items-start">
-              {loading ? <Loader text={`please wait for ${timer} seconds`} /> : <form onSubmit={createJob} className="w-full">
+              {loading ? <Loader text={`please wait`} /> : <form onSubmit={createJob} className="w-full">
                 <div className="space-y-12 shadow-lg rounded-lg p-4">
                   <div className="pb-8">
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
