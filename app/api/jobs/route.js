@@ -15,6 +15,7 @@ export async function GET(req, res) {
         // const data = await res.json()
         await dbConnect()
         const jobs = await Job.find()
+        console.log(jobs)
         return NextResponse.json({
             message: "jobs found successfully!",
             success: true,

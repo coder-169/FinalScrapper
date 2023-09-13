@@ -40,9 +40,6 @@ export async function GET(req, res) {
         const headersList = headers();
         const id = headersList.get('id');
         const data = headersList.get('data');
-        
-        console.log(id)
-
         const res = await fetch(`https://botster.io/api/v2/jobs/${id}`, {
             method: "GET",
             headers: {
@@ -51,7 +48,6 @@ export async function GET(req, res) {
             },
         })
         const d = await res.json()
-        console.log(data,d)
         if (data)
             return NextResponse.json({
                 message: "job found successfully!",
@@ -69,7 +65,6 @@ export async function GET(req, res) {
             },
         })
         const dt = await resp.json()
-        console.log(dt)
         return NextResponse.json({
             message: "job found successfully!",
             data:dt,
