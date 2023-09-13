@@ -19,6 +19,7 @@ export async function POST(req, res) {
         if(res.ok){
             console.log('Ok')
             await dbConnect()
+            console.log(data.job)
             const job = await Job.create(data.job)
             return NextResponse.json({
                 message: "job created successfully!",

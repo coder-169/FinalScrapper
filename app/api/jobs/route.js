@@ -1,9 +1,11 @@
 import Job from "@/models/Job";
 import dbConnect from "@/utils/db";
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 export async function GET(req, res) {
     try {
+        const headerList = headers()
         await dbConnect()
         const jobs = await Job.find()
         console.log(jobs)
