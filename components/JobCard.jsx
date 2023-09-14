@@ -1,3 +1,4 @@
+// 'use client'
 import React, { useEffect, useState } from "react";
 import { BsRobot, BsClock, BsFilePdfFill } from "react-icons/bs";
 import { BsFiletypeJson, BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
@@ -90,7 +91,9 @@ const JobCard = ({ id }) => {
         },
       });
       const d = await res.json();
+      console.log(d)
       if (d.success) {
+
         setJob(d.job);
       }
     } catch (error) {

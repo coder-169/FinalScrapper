@@ -3,9 +3,7 @@ import Credit from '@/components/Credit'
 import JobCard from '@/components/JobCard'
 import Loader from '@/components/Loader'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-
-
+import React, { useState,useEffect } from 'react'
 
 const Page = () => {
     const [loading, setLoading] = useState(true)
@@ -20,8 +18,10 @@ const Page = () => {
                 }
             })
             const data = await res.json()
+            console.log(data)
             if (data.success)
                 setJobs(data.jobs)
+
             else
                 alert(data.message)
         } catch (error) {
