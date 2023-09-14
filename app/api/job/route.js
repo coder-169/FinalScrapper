@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import Job from "@/models/Job";
-import dbConnect from "@/utils/db";
+import { connectToDatabase } from "@/utils/db";
 
 
 export async function POST(req, res) {
     try {
         const body = await req.json();
-        
+
         const res = await fetch('https://botster.io/api/v2/bots/linkedin-profile-scraper', {
             method: "POST",
             headers: {
@@ -17,12 +17,14 @@ export async function POST(req, res) {
             body: JSON.stringify(body)
         })
         const data = await res.json()
-
+        console.log(data)
         if (res.ok) {
-            await dbConnect()
-            const job = await Job.create(data.job)
-            job.token = process.env.BEARER_TOKEN
-            job.save()
+            data.job.token = process.env.BEARER_TOKEN
+            const db = await connectToDatabase();
+            const collection = db.collection('jobs');
+            console.log(data.job)
+            const result = await collection.insertOne(data.job);
+            // console.log(result)
             return NextResponse.json({
                 message: "job created successfully!",
                 job: data.job,

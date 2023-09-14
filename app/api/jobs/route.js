@@ -1,15 +1,11 @@
-import Job from "@/models/Job";
-import dbConnect from "@/utils/db";
+import { connectToDatabase } from "@/utils/db";
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 
 export async function GET(req, res) {
     try {
-        await dbConnect()
-
-        
-        const jobs = await Job.find({ token: process.env.BEARER_TOKEN })
-        console.log(jobs)
+        const db = await connectToDatabase();
+        const collection = db.collection('jobs',);
+        const jobs = await collection.find().toArray();
         return NextResponse.json({
             message: "jobs found successfully!",
             success: true,
@@ -19,6 +15,7 @@ export async function GET(req, res) {
         })
 
     } catch (e) {
+        console.log(e.message)
         return NextResponse.json(
             { success: false, message: e.message },
             { status: 500 }
