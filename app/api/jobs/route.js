@@ -5,9 +5,10 @@ import { headers } from "next/headers";
 
 export async function GET(req, res) {
     try {
-        const headerList = headers()
         await dbConnect()
-        const jobs = await Job.find()
+
+        
+        const jobs = await Job.find({ token: process.env.BEARER_TOKEN })
         console.log(jobs)
         return NextResponse.json({
             message: "jobs found successfully!",
@@ -17,10 +18,9 @@ export async function GET(req, res) {
             status: 200
         })
 
-
     } catch (e) {
         return NextResponse.json(
-            { success: true, message: e.message},
+            { success: false, message: e.message },
             { status: 500 }
         )
     }

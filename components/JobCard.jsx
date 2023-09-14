@@ -5,7 +5,6 @@ import Loader from "./Loader";
 import { useRouter } from "next/navigation";
 
 const JobCard = ({ id }) => {
-  console.log(id)
   const [loading, setLoading] = useState({ loader: false, id: "" });
   const [job, setJob] = useState({});
   const convertToCSV = (data) => {
@@ -91,7 +90,6 @@ const JobCard = ({ id }) => {
         },
       });
       const d = await res.json();
-      console.log(d);
       if (d.success) {
         setJob(d.job);
       }

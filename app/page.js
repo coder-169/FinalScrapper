@@ -7,25 +7,27 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const [position_groups, setPosition_groups] = useState("1")
+
   const [job, setJob] = useState({
     jobName: "",
     jobProject: "",
     input: "",
-    award_: "",
-    skills_: "",
-    courses_: "",
-    patents_: "",
-    projects_: "",
-    education_: "",
-    contact_info_: "",
-    network_info_: "",
-    publications_: "",
-    certifications_: "",
-    treasury_media_: "",
-    recommendations_: "",
-    related_profiles_: "",
-    languages_profile_: "",
-    volunteer_experiences_: "", position_groups: ""
+    award_: "off",
+    skills_: "off",
+    courses_: "off",
+    patents_: "off",
+    projects_: "off",
+    education_: "off",
+    contact_info_: "off",
+    network_info_: "off",
+    publications_: "off",
+    certifications_: "off",
+    treasury_media_: "off",
+    recommendations_: "off",
+    related_profiles_: "off",
+    languages_profile_: "off",
+    volunteer_experiences_: "off"
   })
   const [timer, setTimer] = useState(45)
   // create JOB
@@ -34,7 +36,6 @@ export default function Home() {
 
     if (job.input === '') return alert('Please fill links')
     let arr = job.input.split('\n')
-    console.log(arr)
     // return
     setLoading(true)
 
@@ -42,10 +43,8 @@ export default function Home() {
     let scrape_options = []
     for (const key in job) {
       if (job.hasOwnProperty(key)) { // Check if the property belongs to the object, not its prototype chain
-        console.log()
         if (job[key] === 'on')
           scrape_options.push(key.toString())
-        // console.log(`${key}: ${myObject[key]}`);
       }
     }
     try {
@@ -54,23 +53,12 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: job.jobName || "No Name", input: arr, scrape_options, position_groups:20 })
+        body: JSON.stringify({ name: job.jobName, input: arr, scrape_options, position_groups: parseInt(position_groups.slice(2, 3)) })
       })
       const d = await res.json()
-      console.log(d)
       if (d.success) {
-
-        // if (!d.job.finished) {
-        //   console.log('not finished')
-        //   setTimeout(() => {
-        //     router.push('/jobs')
-        //     setLoading(false)
-        //   }, 45000);
-        // }
-        // else {
-          router.push('/jobs')
-          setLoading(false)
-        // }
+        router.push('/jobs')
+        setLoading(false)
       }
     } catch (error) {
       alert(error.message)
@@ -80,7 +68,11 @@ export default function Home() {
   }
   const changeHandler = (e) => {
     // return setJob({ ...job, [e.target.name]: 'off' })
-    setJob({ ...job, [e.target.name]: e.target.value })
+    if (job[e.target.name] === 'on') {
+      setJob({ ...job, [e.target.name]: 'off' })
+    } else {
+      setJob({ ...job, [e.target.name]: e.target.value })
+    }
   }
   const resetValues = () => {
     setJob({
@@ -101,8 +93,9 @@ export default function Home() {
       recommendations_: "",
       related_profiles_: "",
       languages_profile_: "",
-      volunteer_experiences_: "", position_groups: 20
+      volunteer_experiences_: ""
     })
+    setPosition_groups("")
 
   }
   const [credits, setCredits] = useState(0)
@@ -115,7 +108,7 @@ export default function Home() {
         },
       })
       const d = await res.json()
-      console.log(d)
+      // console.log(d)
       if (d.success) {
         setCredits(d.credits)
       }
@@ -124,20 +117,21 @@ export default function Home() {
     }
 
   }
+  const handleOptionChange = (e) => {
+    setPosition_groups(e.target.id);
+  };
+  const checkAll = (isChecked) => {
+    const updatedJob = {};
+    for (const key in job) {
+      if (key === 'jobName' || key === 'jobProject' || key === 'input' || key === 'position_groups') continue
+      updatedJob[key] = 'on';
+    }
+    // console.log(updatedJob)
+    setJob(updatedJob);
+  };
   useEffect(() => {
     getCredits()
-    // if (loading) {
-    //   const countdown = setInterval(() => {
-    //     // Decrement the timer by 1 second
-    //     if (timer >= 1) {
-    //       setTimer((prevTimer) => prevTimer - 1);
-    //     }
-    //   }, 1000); // Update every 1000 milliseconds (1 second)
-
-      // Clean up the interval when the component unmounts
-      // return () => clearInterval(countdown);
-    // }
-  }, [])
+  }, [job])
   return (
     <main className="w-11/12 sm:w-3/4 mx-auto my-8">
       <div className="flex justify-between">
@@ -181,20 +175,24 @@ export default function Home() {
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
                   <h2 htmlFor="about" className="text-base font-semibold leading-7 text-gray-900">   Jobs (Experiences)</h2>
                   <div className="flex items-center gap-x-3">
-                    <input id="p_0" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
+                    <input id="p_1" name="position_groups" type="radio" checked={position_groups === 'p_1'}
+                      onChange={handleOptionChange} className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
                     <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-500">Most recent only</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="position_groups" name="position_groups" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="position_groups" className="block text-sm font-medium leading-6 text-gray-500">Five recent experiences</label>
+                    <input id="p_5" name="position_groups" checked={position_groups === 'p_5'}
+                      onChange={handleOptionChange} type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
+                    <label htmlFor="p_5" className="block text-sm font-medium leading-6 text-gray-500">Five recent experiences</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="push-email" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-500">Up to 10 recent experiences</label>
+                    <input id="p_10" name="position_groups" checked={position_groups === 'p_10'}
+                      onChange={handleOptionChange} type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
+                    <label htmlFor="p_15" className="block text-sm font-medium leading-6 text-gray-500">Up to 10 recent experiences</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="push-email" name="push-notifications" type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-500">Up to 20 recent experiences</label>
+                    <input id="p_20" name="position_groups" checked={position_groups === 'p_20'}
+                      onChange={handleOptionChange} type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
+                    <label htmlFor="p_20" className="block text-sm font-medium leading-6 text-gray-500">Up to 20 recent experiences</label>
                   </div>
                 </div>
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
@@ -203,7 +201,7 @@ export default function Home() {
                     <p className="mt-1 text-sm leading-6 text-gray-600">Give your job a meaningful title, or leave empty.</p>
                   </div>
                   <label htmlFor="about" className="text-base font-semibold leading-7 text-gray-900">  Extract data</label>
-
+                  <button type="button" onClick={checkAll} className="ml-2">Check all</button>
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
                       <input id="award_" name="award_" type="checkbox"

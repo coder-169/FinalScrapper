@@ -7,6 +7,7 @@ import dbConnect from "@/utils/db";
 export async function POST(req, res) {
     try {
         const body = await req.json();
+        
         const res = await fetch('https://botster.io/api/v2/bots/linkedin-profile-scraper', {
             method: "POST",
             headers: {
@@ -16,11 +17,12 @@ export async function POST(req, res) {
             body: JSON.stringify(body)
         })
         const data = await res.json()
-        if(res.ok){
-            console.log('Ok')
+
+        if (res.ok) {
             await dbConnect()
-            console.log(data.job)
             const job = await Job.create(data.job)
+            job.token = process.env.BEARER_TOKEN
+            job.save()
             return NextResponse.json({
                 message: "job created successfully!",
                 job: data.job,
@@ -28,7 +30,7 @@ export async function POST(req, res) {
             }, {
                 status: 200
             })
-        }else{
+        } else {
             return NextResponse.json({
                 message: "some error occurred!",
                 job: data.job,
@@ -37,7 +39,7 @@ export async function POST(req, res) {
                 status: 200
             })
         }
-        
+
 
 
     } catch (e) {
@@ -60,11 +62,10 @@ export async function GET(req, res) {
             },
         })
         const d = await res.json()
-        console.log(d)
         if (data)
             return NextResponse.json({
                 message: "job found successfully!",
-                job:d.job,
+                job: d.job,
                 success: true,
             }, {
                 status: 200
@@ -80,7 +81,7 @@ export async function GET(req, res) {
         const dt = await resp.json()
         return NextResponse.json({
             message: "job found successfully!",
-            data:dt,
+            data: dt,
             success: true,
         }, {
             status: 200
@@ -89,7 +90,7 @@ export async function GET(req, res) {
 
     } catch (e) {
         return NextResponse.json(
-            { success: true, message: "Server error, please try again!" },
+            { success: false, message: "Server error, please try again!" },
             { status: 500 }
         )
     }

@@ -9,6 +9,10 @@ const JobSchema = mongoose.Schema({
             type: String,
         },
     },
+    token:{
+        type:String,
+        default:""
+    },
     created_at: {
         type: Date,
         default: Date.now()

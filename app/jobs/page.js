@@ -16,14 +16,15 @@ const Page = () => {
             const res = await fetch('/api/jobs', {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 }
             })
             const data = await res.json()
-            console.log(data)
-            setJobs(data.jobs)
+            if (data.success)
+                setJobs(data.jobs)
+            else
+                alert(data.message)
         } catch (error) {
-            console.log('here is error')
             alert(error.message)
         }
         setLoading(false)
@@ -47,7 +48,6 @@ const Page = () => {
                     </div>
                     <div className="flex flex-wrap -m-4 items-start justify-start">
                         {jobs && jobs.length <= 0 ? <h2>No Jobs Found</h2> : jobs?.map(j => {
-                            console.log(j)
                             return <JobCard key={j.id} id={j.id} />
                         })}
                     </div>

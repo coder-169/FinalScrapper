@@ -1,13 +1,14 @@
 'use client'
 import Loader from '@/components/Loader'
 import ClassicResume from '@/components/Resume'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
 
 const Page = ({ params }) => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const id = params.id
-    console.log(id)
     const getJobDetails = async () => {
         setLoading(true);
         try {
@@ -19,13 +20,18 @@ const Page = ({ params }) => {
                 },
             });
             const d = await res.json();
-            console.log(d)
             setUsers(d.data)
-            console.log(d.job)
         } catch (error) {
             alert(error.message)
         }
         setLoading(false)
+    };
+    const printResume = () => {
+        document.querySelector("#downloadBtn").style.display = "none";
+        document.querySelector("#goBtn").style.display = "none";
+        window.print();
+        document.querySelector("#downloadBtn").style.display = "block";
+        document.querySelector("#goBtn").style.display = "block";
     };
     useEffect(() => {
         getJobDetails()
@@ -34,21 +40,30 @@ const Page = ({ params }) => {
     return (
 
         loading ? <Loader text={'please wait we are preparing your resume'} /> : users &&
-            <div>
+            <div className="">
+                <div className="my-4 mx-8">
+                    <Link
+                        href={`/jobs`}
+                        className="!flex gap-2 items-center hover:opacity-60 font-bold"
+                        id="goBtn"
+                    >
+                        <FaArrowLeft />
+                        Go Back
+                    </Link>
+                </div>
+                <div className="my-4 mx-8">
+                    <button
+                        onClick={printResume}
+                        type="button"
+                        className="hover:opacity-60 font-bold"
+                        id="downloadBtn"
+                    >
+                        Download Resume
+                    </button>
+                </div>
                 {users.map(user => {
                     return <ClassicResume key={user.profile_id} user={user} />
                 })}
-                {/* {users.map((user, index) => (
-                    <div key={index}>
-                        <PDFDownloadLink document={<Resume user={user} />} fileName={`resume-${index + 1}.pdf`}>
-                            {({ blob, url, loading, error }) =>
-                                loading ? 'Loading document...' : 'Download now!'
-                            }
-                        </PDFDownloadLink>
-                    </div>
-                ))} */}
-
-
             </div>
 
     )

@@ -10,7 +10,7 @@ export async function GET(req, res) {
             }
         })
         const data = await res.json()
-        console.log(data)
+        // console.log(data)
         return NextResponse.json({
             message: "credits are here!",
             success: true,
