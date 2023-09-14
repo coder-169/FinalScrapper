@@ -27,11 +27,15 @@ const Page = ({ params }) => {
         setLoading(false)
     };
     const printResume = () => {
+        const elem = document.querySelector(".goBtn")
+        elem.classList.remove('!flex')
+        elem.classList.add('hidden') 
         document.querySelector("#downloadBtn").style.display = "none";
-        document.querySelector("#goBtn").style.display = "none";
         window.print();
         document.querySelector("#downloadBtn").style.display = "block";
-        document.querySelector("#goBtn").style.display = "block";
+        document.querySelector(".goBtn").style.display = "block";
+        elem.classList.remove('hidden')
+        elem.classList.add('!flex') 
     };
     useEffect(() => {
         getJobDetails()
@@ -44,8 +48,7 @@ const Page = ({ params }) => {
                 <div className="my-4 mx-8">
                     <Link
                         href={`/jobs`}
-                        className="!flex gap-2 items-center hover:opacity-60 font-bold"
-                        id="goBtn"
+                        className="goBtn !flex gap-2 items-center hover:opacity-60 font-bold"
                     >
                         <FaArrowLeft />
                         Go Back
