@@ -145,8 +145,8 @@ export default function Home() {
       </div>
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-16 mx-auto">
-          <div className="flex flex-wrap -m-4">
-            <div className="md:w-2/3 flex flex-col items-start">
+          <div className="flex flex-wrap lg:flex-nowrap -m-4 justify-between ">
+            <div className="lg:w-2/3 w-full flex flex-shrink flex-col items-start">
               {loading ? <Loader text={`please wait`} /> : <form onSubmit={createJob} className="w-full">
                 <div className="space-y-12 shadow-lg rounded-lg p-4">
                   <div className="pb-8">
@@ -330,7 +330,7 @@ export default function Home() {
                 </div>
               </form>}
             </div>
-            <div className="bg-white p-4 h-max shadow-lg ml-9 rounded-lg md:w-[30%] flex flex-col items-start">
+            <div className="bg-white p-4 h-max shadow-lg md:ml-4 rounded-lg lg:w-[33%] w-full flex flex-col items-start">
 
               <div className=" w-full lg:py-6 mb-6 lg:mb-0">
                 <div className="flex mb-4">

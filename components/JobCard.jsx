@@ -109,7 +109,7 @@ const JobCard = ({ id }) => {
     <Loader text={"downloading data wait please..."} />
   ) : (
     job && (
-      <div className="xl:w-1/3 md:w-1/2 p-4">
+      <div className="xl:w-1/3 md:w-1/2 w-full p-4">
         <div className="shadow-lg p-6 rounded-lg">
           <h2 className="text-lg text-gray-900 font-bold title-font mb-2">
             {job?.name?.slice(0, 20)}
