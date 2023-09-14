@@ -3,7 +3,7 @@ import Credit from '@/components/Credit'
 import JobCard from '@/components/JobCard'
 import Loader from '@/components/Loader'
 import Link from 'next/link'
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Page = () => {
     const [loading, setLoading] = useState(true)
@@ -35,8 +35,11 @@ const Page = () => {
     }, [])
     return (
         <div className="w-11/12 sm:w-3/4 mx-auto my-8">
-            <Link href={'/'}>
-                <h3 className="text-sm text-gray-800 my-2">Linked In Profile Scrapper</h3></Link>
+            <div className="my-8">
+                <Link href={'/'} className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                    Linked In Profile Scrapper
+                </Link>
+            </div>
             <div className="rounded-lg shadow-lg p-8">
                 <h2 className="text-xl font-bold">My Jobs</h2><span className="text-blue-500">your recent</span>
             </div>
