@@ -11,7 +11,6 @@ export default function Home() {
 
   const [job, setJob] = useState({
     jobName: "",
-    jobProject: "",
     input: "",
     award_: "off",
     skills_: "off",
@@ -20,12 +19,9 @@ export default function Home() {
     projects_: "off",
     education_: "off",
     contact_info_: "off",
-    network_info_: "off",
     publications_: "off",
     certifications_: "off",
-    treasury_media_: "off",
     recommendations_: "off",
-    related_profiles_: "off",
     languages_profile_: "off",
     volunteer_experiences_: "off"
   })
@@ -77,7 +73,6 @@ export default function Home() {
   const resetValues = () => {
     setJob({
       jobName: "",
-      jobProject: "",
       input: "",
       award_: "",
       skills_: "",
@@ -86,12 +81,9 @@ export default function Home() {
       projects_: "",
       education_: "",
       contact_info_: "",
-      network_info_: "",
       publications_: "",
       certifications_: "",
-      treasury_media_: "",
       recommendations_: "",
-      related_profiles_: "",
       languages_profile_: "",
       volunteer_experiences_: ""
     })
@@ -123,7 +115,7 @@ export default function Home() {
   const checkAll = () => {
     const updatedJob = {};
     for (const key in job) {
-      if (key === 'jobName' || key === 'jobProject' || key === 'input' || key === 'position_groups') {
+      if (key === 'jobName' || key === 'input' || key === 'position_groups') {
         updatedJob[key] = job[key];
         console.log(updatedJob[key])
       }
@@ -140,13 +132,11 @@ export default function Home() {
   }, [job])
   return (
     <main className="w-11/12 sm:w-3/4 mx-auto my-8">
-      <div className="flex justify-between">
-
-        <Link href={'/'}>
-          <h3 className="text-sm text-gray-800 my-2">Linked In Profile Scrapper</h3>
+      <div className="flex justify-between my-8">
+        <Link href={'/'} className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+          Linked In Profile Scrapper
         </Link>
-        <Link href={'/jobs'}>
-          <h3 className="text-sm text-gray-800 my-2">Your Jobs</h3>
+        <Link href={'/jobs'} className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Your Jobs
         </Link>
       </div>
       <div className="rounded-lg shadow-lg p-8">
@@ -166,13 +156,6 @@ export default function Home() {
                         <p className="mt-1 text-sm leading-6 text-gray-600">Give your job a meaningful title, or leave empty.</p>
                         <div className="mt-2">
                           <input id="jobName" name="jobName" value={job.jobName} onChange={changeHandler} className="block w-full px-4 py-3 rounded-lg shadow-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:z-10 text-sm leading-5 border border-gray-400 transition duration-500 ease-in-out transform hover:bg-green-500/10 hover:shadow-lg focus:scale-100 focus:bg-green-500/10 focus:shadow-lg focus:text-green-400 focus:font-semibold hover:border-green-700 focus:border-2 focus:border-green-700" />
-                        </div>
-                      </div>
-                      <div className="col-span-full">
-                        <label htmlFor="jobProject" className="text-base font-semibold leading-7 text-gray-900">Create a project folder (optional)</label>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">Add this job to one of your projects..</p>
-                        <div className="mt-2">
-                          <input id="jobProject" name="jobProject" value={job.jobProject} onChange={changeHandler} className="block w-full px-4 py-3 rounded-lg shadow-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:z-10 text-sm leading-5 border border-gray-400 transition duration-500 ease-in-out transform hover:scale-102 hover:bg-green-500/10 hover:shadow-lg focus:scale-100 focus:bg-green-500/10 focus:shadow-lg focus:text-green-400 focus:font-semibold hover:border-green-700 focus:border-2 focus:border-green-700" />
                         </div>
                       </div>
                     </div>
@@ -280,16 +263,6 @@ export default function Home() {
                   </div>
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
-                      <input id="network_info_" name="network_info_" type="checkbox"
-                        checked={job.network_info_ === 'on'} onChange={changeHandler}
-                        className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-600" />
-                    </div>
-                    <div className="text-sm leading-6">
-                      <label htmlFor="network_info_" className="font-medium text-gray-900 text-xs">Network Info</label>
-                    </div>
-                  </div>
-                  <div className="relative flex gap-x-3">
-                    <div className="flex h-6 items-center">
                       <input id="publications_" name="publications_" type="checkbox"
                         checked={job.publications_ === 'on'} onChange={changeHandler}
                         className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-600" />
@@ -310,32 +283,12 @@ export default function Home() {
                   </div>
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
-                      <input id="treasury_media_" name="treasury_media_" type="checkbox"
-                        checked={job.treasury_media_ === 'on'} onChange={changeHandler}
-                        className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-600" />
-                    </div>
-                    <div className="text-sm leading-6">
-                      <label htmlFor="treasury_media_" className="font-medium text-gray-900 text-xs">Treasury Media</label>
-                    </div>
-                  </div>
-                  <div className="relative flex gap-x-3">
-                    <div className="flex h-6 items-center">
                       <input id="recommendations_" name="recommendations_" type="checkbox"
                         checked={job.recommendations_ === 'on'} onChange={changeHandler}
                         className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-600" />
                     </div>
                     <div className="text-sm leading-6">
                       <label htmlFor="recommendations_" className="font-medium text-gray-900 text-xs">Recommendations</label>
-                    </div>
-                  </div>
-                  <div className="relative flex gap-x-3">
-                    <div className="flex h-6 items-center">
-                      <input id="related_profiles_" name="related_profiles_" type="checkbox"
-                        checked={job.related_profiles_ === 'on'} onChange={changeHandler}
-                        className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-600" />
-                    </div>
-                    <div className="text-sm leading-6">
-                      <label htmlFor="related_profiles_" className="font-medium text-gray-900 text-xs">Related Profiles</label>
                     </div>
                   </div>
                   <div className="relative flex gap-x-3">
@@ -358,21 +311,6 @@ export default function Home() {
                       <label htmlFor="volunteer_experiences_" className="font-medium text-gray-900 text-xs">Volunteer Experiences</label>
                     </div>
                   </div>
-                </div>
-                <div className="border-l-4 text-sm bg-red-100 border-red-600 p-2">
-                  <p className="text-red-400 font-normal">
-                    The usage of this bot is limited for free accounts. You are able to input a maximum of <span className="font-bold">2 queries</span>. Keep that in mind when selecting your options. To remove the limits consider <span className="text-blue-400">buying credits</span>
-                    &nbsp;or&nbsp;
-                    <span className="text-blue-400">
-                      subscribing
-                    </span>.
-                    &nbsp;
-                  </p>
-                  <p className="mt-2">
-                    <span className="text-blue-400">
-                      Why this limit?
-                    </span>.
-                  </p>
                 </div>
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
                   <div className="mb-4">
@@ -421,7 +359,7 @@ export default function Home() {
                     Total credits
                   </h3>
                   <span className="title-font font-medium text-2xl text-gray-900">
-                    ${credits}.00
+                    {credits}.00
                   </span>
                 </div>
               </div>
