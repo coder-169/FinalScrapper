@@ -7,7 +7,7 @@ import { connectToDatabase } from "@/utils/db";
 export async function POST(req, res) {
     try {
         const body = await req.json();
-
+        console.log(body)
         const res = await fetch('https://botster.io/api/v2/bots/linkedin-profile-scraper', {
             method: "POST",
             headers: {
@@ -17,12 +17,10 @@ export async function POST(req, res) {
             body: JSON.stringify(body)
         })
         const data = await res.json()
-        console.log(data)
         if (res.ok) {
             data.job.token = process.env.BEARER_TOKEN
             const db = await connectToDatabase();
             const collection = db.collection('jobs');
-            console.log(data.job)
             const result = await collection.insertOne(data.job);
             // console.log(result)
             return NextResponse.json({

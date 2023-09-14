@@ -5,7 +5,7 @@ export async function GET(req, res) {
     try {
         const db = await connectToDatabase();
         const collection = db.collection('jobs',);
-        const jobs = await collection.find().toArray();
+        const jobs = await collection.find({token:process.env.BEARER_TOKEN}).toArray();
         return NextResponse.json({
             message: "jobs found successfully!",
             success: true,

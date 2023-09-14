@@ -53,7 +53,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: job.jobName, input: arr, scrape_options, position_groups: parseInt(position_groups.slice(2, 3)) })
+        body: JSON.stringify({ name: job.jobName, input: arr, scrape_options, position_groups: parseInt(position_groups) })
       })
       const d = await res.json()
       if (d.success) {
@@ -76,7 +76,7 @@ export default function Home() {
   }
   const resetValues = () => {
     setJob({
-      jobName,
+      jobName: "",
       jobProject: "",
       input: "",
       award_: "",
@@ -120,11 +120,17 @@ export default function Home() {
   const handleOptionChange = (e) => {
     setPosition_groups(e.target.id);
   };
-  const checkAll = (isChecked) => {
+  const checkAll = () => {
     const updatedJob = {};
     for (const key in job) {
-      if (key === 'jobName' || key === 'jobProject' || key === 'input' || key === 'position_groups') continue
-      updatedJob[key] = 'on';
+      if (key === 'jobName' || key === 'jobProject' || key === 'input' || key === 'position_groups') {
+        updatedJob[key] = job[key];
+        console.log(updatedJob[key])
+      }
+      else {
+        updatedJob[key] = 'on';
+      }
+      continue
     }
     // console.log(updatedJob)
     setJob(updatedJob);
@@ -175,24 +181,24 @@ export default function Home() {
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
                   <h2 htmlFor="about" className="text-base font-semibold leading-7 text-gray-900">   Jobs (Experiences)</h2>
                   <div className="flex items-center gap-x-3">
-                    <input id="p_1" name="position_groups" type="radio" checked={position_groups === 'p_1'}
+                    <input id="1" name="position_groups" type="radio" checked={position_groups === '1'}
                       onChange={handleOptionChange} className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="push-email" className="block text-sm font-medium leading-6 text-gray-500">Most recent only</label>
+                    <label htmlFor="1" className="block text-sm font-medium leading-6 text-gray-500">Most recent only</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="p_5" name="position_groups" checked={position_groups === 'p_5'}
+                    <input id="5" name="position_groups" checked={position_groups === '5'}
                       onChange={handleOptionChange} type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="p_5" className="block text-sm font-medium leading-6 text-gray-500">Five recent experiences</label>
+                    <label htmlFor="5" className="block text-sm font-medium leading-6 text-gray-500">Five recent experiences</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="p_10" name="position_groups" checked={position_groups === 'p_10'}
+                    <input id="15" name="position_groups" checked={position_groups === '15'}
                       onChange={handleOptionChange} type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="p_15" className="block text-sm font-medium leading-6 text-gray-500">Up to 10 recent experiences</label>
+                    <label htmlFor="15" className="block text-sm font-medium leading-6 text-gray-500">Up to 10 recent experiences</label>
                   </div>
                   <div className="flex items-center gap-x-3">
-                    <input id="p_20" name="position_groups" checked={position_groups === 'p_20'}
+                    <input id="20" name="position_groups" checked={position_groups === '20'}
                       onChange={handleOptionChange} type="radio" className="form-radio h-4 w-4 text-red-600 transition duration-500 ease-in-out transform hover:scale-105 focus:outline-none focus:shadow-outline-red focus:shadow-lg" />
-                    <label htmlFor="p_20" className="block text-sm font-medium leading-6 text-gray-500">Up to 20 recent experiences</label>
+                    <label htmlFor="20" className="block text-sm font-medium leading-6 text-gray-500">Up to 20 recent experiences</label>
                   </div>
                 </div>
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
