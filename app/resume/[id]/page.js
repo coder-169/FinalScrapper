@@ -27,15 +27,13 @@ const Page = ({ params }) => {
         setLoading(false)
     };
     const printResume = () => {
-        const elem = document.querySelector(".goBtn")
-        elem.classList.remove('!flex')
-        elem.classList.add('hidden') 
-        document.querySelector("#downloadBtn").style.display = "none";
+        const elem = document.querySelector(".buttons")
+        // elem.classList.remove('!flex')
+        // elem.classList.add('hidden') 
+        elem.style.display = "none";
         window.print();
-        document.querySelector("#downloadBtn").style.display = "block";
-        document.querySelector(".goBtn").style.display = "block";
-        elem.classList.remove('hidden')
-        elem.classList.add('!flex') 
+        elem.style.display = "block";
+        // document.querySelector(".goBtn").style.display = "block";
     };
     useEffect(() => {
         getJobDetails()
@@ -45,24 +43,27 @@ const Page = ({ params }) => {
 
         loading ? <Loader text={'please wait we are preparing your resume'} /> : users &&
             <div className="">
-                <div className="my-4 mx-8">
-                    <Link
-                        href={`/jobs`}
-                        className="goBtn !flex gap-2 items-center hover:opacity-60 font-bold"
-                    >
-                        <FaArrowLeft />
-                        Go Back
-                    </Link>
-                </div>
-                <div className="my-4 mx-8">
-                    <button
-                        onClick={printResume}
-                        type="button"
-                        className="hover:opacity-60 font-bold"
-                        id="downloadBtn"
-                    >
-                        Download Resume
-                    </button>
+                <div className="buttons">
+
+                    <div className="my-4 mx-8">
+                        <Link
+                            href={`/jobs`}
+                            className="goBtn !flex gap-2 items-center hover:opacity-60 font-bold"
+                        >
+                            <FaArrowLeft />
+                            Go Back
+                        </Link>
+                    </div>
+                    <div className="my-4 mx-8">
+                        <button
+                            onClick={printResume}
+                            type="button"
+                            className="hover:opacity-60 font-bold"
+                            id="downloadBtn"
+                        >
+                            Download Resume
+                        </button>
+                    </div>
                 </div>
                 {users.map(user => {
                     return <ClassicResume key={user.profile_id} user={user} />

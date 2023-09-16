@@ -1,4 +1,4 @@
-// 'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { BsRobot, BsClock, BsFilePdfFill } from "react-icons/bs";
 import { BsFiletypeJson, BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
@@ -8,11 +8,22 @@ import { useRouter } from "next/navigation";
 const JobCard = ({ id }) => {
   const [loading, setLoading] = useState({ loader: false, id: "" });
   const [job, setJob] = useState({});
-  const convertToCSV = (data) => {
-    const header = Object.keys(data[0]).join(",") + "\n";
-    const rows = data.map((obj) => Object.values(obj).join(",")).join("\n");
+  const convertToCSV = (data, columnOrder) => {
+    const header = columnOrder.join(",") + "\n";
+    const rows = data
+      .map((obj) => {
+        return columnOrder
+          .map((key) => {
+            // Convert cell value to a string and escape special characters
+            const cellValue = String(obj[key]).replace(/"/g, '""');
+            return `"${cellValue}"`;
+          })
+          .join(",");
+      })
+      .join("\n");
     return header + rows;
   };
+
   const formatTime = () => {
     const timestamp = 1694615184 * 1000; // Convert seconds to milliseconds
     const date = new Date(timestamp);
@@ -34,7 +45,12 @@ const JobCard = ({ id }) => {
     setLoading({ loader: true, id: id });
     // Replace this with your function that fetches the data
     let data = await getJobDetails();
-    const csvData = convertToCSV(data);
+    const columnOrder = [];
+    Object.keys(data[0]).map((key) => {
+      columnOrder.push(key);
+    });
+    const csvData = convertToCSV(data, columnOrder);
+
     const blob = new Blob([csvData], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -91,9 +107,8 @@ const JobCard = ({ id }) => {
         },
       });
       const d = await res.json();
-      console.log(d)
+      console.log(d);
       if (d.success) {
-
         setJob(d.job);
       }
     } catch (error) {
@@ -129,7 +144,9 @@ const JobCard = ({ id }) => {
           </div>
           <div className="flex gap-1 items-center my-4">
             <BsClock />
-            <p className="leading-relaxed text-sm">Created: {formatTime(job?.created_at)}.</p>
+            <p className="leading-relaxed text-sm">
+              Created: {formatTime(job?.created_at)}.
+            </p>
           </div>
           <div className="border-t border-gray-100 items-center justify-between my-4 pt-4 flex gap-2">
             <span>Download</span>

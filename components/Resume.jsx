@@ -1,15 +1,12 @@
 "use client";
 import Script from "next/script";
 import React from "react";
-import { FaLinkedin, FaLocationDot } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
 const ClassicResume = ({ user }) => {
-
-  
   return (
     <>
       <div className="resume relative">
-     
         <div className="resume_left">
           <div className="resume_profile">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -238,6 +235,27 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
+            (key) => key.startsWith("award__") && key.endsWith("_name")
+          ) ? (
+            <div className="resume_item resume_education">
+              <div className="title">
+                <p className="bold">Awards</p>
+              </div>
+              <ul>
+                {Object.keys(user).map((key) => {
+                  if (key.startsWith("award_") && key.endsWith("_name")) {
+                    return (
+                      <li key={key}>
+                        <h3>{user[key]}</h3>
+                      </li>
+                    );
+                  }
+                  return null; // Return null for non-course keys
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {Object.keys(user).some(
             (key) => key.startsWith("certifications_") && key.endsWith("_name")
           ) ? (
             <div className="resume_item resume_education">
@@ -246,7 +264,97 @@ const ClassicResume = ({ user }) => {
               </div>
               <ul>
                 {Object.keys(user).map((key) => {
-                  if (key.startsWith("certifications_") && key.endsWith("_name")) {
+                  if (
+                    key.startsWith("certifications_") &&
+                    key.endsWith("_name")
+                  ) {
+                    return (
+                      <li key={key}>
+                        <h3>{user[key]}</h3>
+                      </li>
+                    );
+                  }
+                  return null; // Return null for non-course keys
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {Object.keys(user).some(
+            (key) => key.startsWith("publications_") && key.endsWith("_name")
+          ) ? (
+            <div className="resume_item resume_education">
+              <div className="title">
+                <p className="bold">Publications</p>
+              </div>
+              <ul>
+                {Object.keys(user).map((key) => {
+                  if (
+                    key.startsWith("publications_") &&
+                    key.endsWith("_name")
+                  ) {
+                    return (
+                      <li key={key}>
+                        <h3>{user[key]}</h3>
+                      </li>
+                    );
+                  }
+                  return null; // Return null for non-course keys
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {Object.keys(user).some(
+            (key) => key.startsWith("languages_") && key.endsWith("_name")
+          ) ? (
+            <div className="resume_item resume_education">
+              <div className="title">
+                <p className="bold">Languages</p>
+              </div>
+              <ul>
+                {Object.keys(user).map((key) => {
+                  if (key.startsWith("languages_") && key.endsWith("_name")) {
+                    return (
+                      <li key={key}>
+                        <h3>{user[key]}</h3>
+                      </li>
+                    );
+                  }
+                  return null; // Return null for non-course keys
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {Object.keys(user).some(
+            (key) => key.startsWith("patents_") && key.endsWith("_name")
+          ) ? (
+            <div className="resume_item resume_education">
+              <div className="title">
+                <p className="bold">Patents</p>
+              </div>
+              <ul>
+                {Object.keys(user).map((key) => {
+                  if (key.startsWith("patents_") && key.endsWith("_name")) {
+                    return (
+                      <li key={key}>
+                        <h3>{user[key]}</h3>
+                      </li>
+                    );
+                  }
+                  return null; // Return null for non-course keys
+                })}
+              </ul>
+            </div>
+          ) : null}
+          {Object.keys(user).some(
+            (key) => key.startsWith("projects_") && key.endsWith("_name")
+          ) ? (
+            <div className="resume_item resume_education">
+              <div className="title">
+                <p className="bold">Projects</p>
+              </div>
+              <ul>
+                {Object.keys(user).map((key) => {
+                  if (key.startsWith("projects_") && key.endsWith("_name")) {
                     return (
                       <li key={key}>
                         <h3>{user[key]}</h3>

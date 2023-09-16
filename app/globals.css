@@ -178,14 +178,14 @@ input[type="radio"]:checked {
 }
 
 .resume {
-  width: 800px;
+  width: 60%;
   height: auto;
   display: flex;
   margin: 50px auto;
 }
 
 .resume .resume_left {
-  width: 280px;
+  width: 30%;
   background: #0bb5f4;
 }
 
@@ -296,7 +296,7 @@ input[type="radio"]:checked {
 }
 
 .resume .resume_right {
-  width: 520px;
+  width: 65%;
   background: #fff;
   padding: 25px;
 }
@@ -382,4 +382,23 @@ input[type="radio"]:checked {
 
 .resume .resume_right .resume_hobby ul li:last-child:before {
   display: none;
+}
+
+@media print {
+  /* Define print-specific styles here */
+  .resume {
+    page-break-before: always;
+    /* Adjust other styles as needed for printing */
+    width: 95%;
+  }
+  .resume .resume_left {
+    width: 40%;
+    background: #fff;
+    padding: 25px;
+  }
+  .resume .resume_right {
+    width: 60%;
+    background: #fff;
+    padding: 25px;
+  }
 }
