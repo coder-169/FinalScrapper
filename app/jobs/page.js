@@ -18,7 +18,6 @@ const Page = () => {
                 }
             })
             const data = await res.json()
-            console.log(data)
             if (data.success)
                 setJobs(data.jobs)
 
@@ -34,10 +33,22 @@ const Page = () => {
         getAllJobs()
     }, [])
     return (
-        <div className="w-11/12 sm:w-3/4 mx-auto my-8">
-            <div className="my-8">
+        <div className="w-11/12 sm:w-3/4 mx-auto mb-8">
+            <title>
+
+                AI LinkedIn CV Generator | Jobs
+            </title>
+            <div className="mx-0 sm:mx-auto w-max">
+
+                <Link href={'/'}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logo.jpeg" alt="" className="w-48 sm:w-[200px] md:w-[280px] lg:w-[400px]" />
+                </Link>
+            </div>
+
+            <div className="flex justify-between mb-8 items-center">
                 <Link href={'/'} className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
-                    Linked In Profile Scrapper
+                    AI LinkedIn Profile Grapper
                 </Link>
             </div>
             <div className="rounded-lg shadow-lg p-8">

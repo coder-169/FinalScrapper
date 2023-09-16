@@ -393,8 +393,12 @@ input[type="radio"]:checked {
   }
   .resume .resume_left {
     width: 40%;
-    background: #fff;
+    /* background: #fff; */
+    background: #009fd9;
     padding: 25px;
+  }
+  .my_icon {
+    color: #009fd9;
   }
   .resume .resume_right {
     width: 60%;

@@ -117,7 +117,6 @@ export default function Home() {
     for (const key in job) {
       if (key === 'jobName' || key === 'input' || key === 'position_groups') {
         updatedJob[key] = job[key];
-        console.log(updatedJob[key])
       }
       else {
         updatedJob[key] = 'on';
@@ -131,16 +130,26 @@ export default function Home() {
     getCredits()
   }, [job])
   return (
-    <main className="w-11/12 sm:w-3/4 mx-auto my-8">
-      <div className="flex justify-between my-8">
+    <main className="w-11/12 sm:w-3/4 mx-auto mb-8">
+      <title>AI LinkedIn CV Generator</title>
+      {/* <img src="/fav.jpeg" alt="" className="fixed top-40 left-16 w-16 h-" /> */}
+      <div className="mx-0 sm:mx-auto w-max">
+
+        <Link href={'/'}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.jpeg" alt="" className="w-48 sm:w-[200px] md:w-[280px] lg:w-[400px]" />
+        </Link>
+      </div>
+
+      <div className="flex flex-col sm:flex-row items-start gap-2 justify-between mb-8 sm:items-center">
         <Link href={'/'} className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
-          Linked In Profile Scrapper
+          AI LinkedIn Profile Grapper
         </Link>
         <Link href={'/jobs'} className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Your Jobs
         </Link>
       </div>
       <div className="rounded-lg shadow-lg p-8">
-        <h2 className="text-xl font-bold">Start bot: LinkedIn Profile Extractor</h2>
+        <h2 className="text-xl font-bold">Start bot: AI LinkedIn CV Generator</h2>
         {/* <a className="text-blue-500" href="#">Return to the bot information</a> */}
       </div>
       <section className="text-gray-600 body-font overflow-hidden">
@@ -187,10 +196,9 @@ export default function Home() {
                 <div className="space-y-4 my-4 shadow-lg rounded-lg p-4">
                   <div className="mb-4">
                     <h2 htmlFor="about" className="text-base font-semibold leading-7 text-gray-900">Custom Options</h2>
-                    <p className="mt-1 text-sm leading-6 text-gray-600">Give your job a meaningful title, or leave empty.</p>
                   </div>
                   <label htmlFor="about" className="text-base font-semibold leading-7 text-gray-900">  Extract data</label>
-                  <button type="button" onClick={checkAll} className="ml-2">Check all</button>
+                  <button type="button" onClick={checkAll} className="ml-4 rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Check all</button>
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
                       <input id="award_" name="award_" type="checkbox"
@@ -330,7 +338,7 @@ export default function Home() {
                 </div>
               </form>}
             </div>
-            <div className="bg-white p-4 h-max shadow-lg md:ml-4 rounded-lg lg:w-[33%] w-full flex flex-col items-start">
+            <div className="bg-white border-2 border-gray-300 border-opacity-60 p-4 h-max shadow-lg md:ml-4 rounded-lg lg:w-[33%] mt-8 sm:m-0 w-full flex flex-col items-start">
 
               <div className=" w-full lg:py-6 mb-6 lg:mb-0">
                 <div className="flex mb-4">

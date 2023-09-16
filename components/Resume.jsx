@@ -4,8 +4,20 @@ import React from "react";
 import { FaLinkedin } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
 const ClassicResume = ({ user }) => {
+  function formatDate(month, year) {
+    if (month === "N/A") return "N/A " + year;
+    else if (year === "N/A") return month + " N/A";
+    const date = new Date(year, month - 1, 1);
+    const monthYear = date.toLocaleDateString("en-US", {
+      month: "short",
+      year: "numeric",
+    });
+    return monthYear;
+  }
+
   return (
     <>
+      <title>AI LinkedIn CV Generator | Resume</title>
       <div className="resume relative">
         <div className="resume_left">
           <div className="resume_profile">
@@ -23,15 +35,15 @@ const ClassicResume = ({ user }) => {
               <ul>
                 <li>
                   <div className="flex w-8 h-8 rounded-full mr-2">
-                    <HiLocationMarker className="text-xl text-white" />
+                    <HiLocationMarker className="my_icon text-xl text-white" />
                   </div>
                   <div className="data">{user?.location_default}</div>
                 </li>
                 <li>
                   <div className="flex w-8 h-8 rounded-full mr-2">
-                    <FaLinkedin className="text-xl text-white" />
+                    <FaLinkedin className="my_icon text-xl text-white" />
                   </div>
-                  <div className="data">{user?.linkedin_url}</div>
+                  <div className="data pr-2">{user?.linkedin_url}</div>
                 </li>
               </ul>
             </div>
@@ -52,51 +64,6 @@ const ClassicResume = ({ user }) => {
                 </ul>
               </div>
             )}
-
-            {/* ** SOCIAL ICONS */}
-            {/* <div className="resume_item resume_social">
-              <div className="title">
-                <p className="bold">Social</p>
-              </div>
-              <ul>
-                <li>
-                  <div className="">
-                    <i className="fab fa-facebook-square"></i>
-                  </div>
-                  <div className="data">
-                    <p className="semi-bold">Facebook</p>
-                    <p>Stephen@facebook</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon">
-                    <i className="fab fa-twitter-square"></i>
-                  </div>
-                  <div className="data">
-                    <p className="semi-bold">Twitter</p>
-                    <p>Stephen@twitter</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon">
-                    <i className="fab fa-youtube"></i>
-                  </div>
-                  <div className="data">
-                    <p className="semi-bold">Youtube</p>
-                    <p>Stephen@youtube</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon">
-                    <i className="fab fa-linkedin"></i>
-                  </div>
-                  <div className="data">
-                    <p className="semi-bold">Linkedin</p>
-                    <p>Stephen@linkedin</p>
-                  </div>
-                </li>
-              </ul>
-            </div> */}
           </div>
         </div>
         <div className="resume_right">
@@ -120,15 +87,28 @@ const ClassicResume = ({ user }) => {
                     key.endsWith("_title")
                   ) {
                     const companyKey = key.replace("_title", "_company");
-                    const startDateKey = key.replace(
+                    const startDateMonthKey = key.replace(
                       "_title",
                       "_date_start_month"
                     );
-                    const endDateKey = key.replace("_title", "_date_end_month");
+                    const startDateYearKey = key.replace(
+                      "_title",
+                      "_date_start_year"
+                    );
+                    const endDateMonthKey = key.replace(
+                      "_title",
+                      "_date_end_month"
+                    );
+                    const endDateYearKey = key.replace(
+                      "_title",
+                      "_date_end_year"
+                    );
 
                     const companyName = user[companyKey] || "Unknown Company";
-                    const startDate = user[startDateKey] || "Start Date: N/A";
-                    const endDate = user[endDateKey] || "End Date: N/A";
+                    const startDateMonth = user[startDateMonthKey] || "N/A";
+                    const startDateYear = user[startDateYearKey] || "N/A";
+                    const endDateMonth = user[endDateMonthKey] || "N/A";
+                    const endDateYear = user[endDateYearKey] || "N/A";
                     const title = user[key] || "Title: N/A";
 
                     const companyURL = user[companyKey + "_url"] || "";
@@ -140,7 +120,15 @@ const ClassicResume = ({ user }) => {
                           <strong>{companyName}</strong>
                         </p>
                         <p className="date">
-                          {startDate} - {endDate}
+                          {startDateMonth === "N/A" &&
+                          startDateYear === startDateMonth
+                            ? "N/A"
+                            : formatDate(startDateMonth, startDateYear)}
+                          {" - "}
+                          {endDateMonth === "N/A" &&
+                          endDateYear === endDateMonth
+                            ? "N/A"
+                            : formatDate(endDateMonth, endDateYear)}
                         </p>
                         {companyURL && (
                           <p>
@@ -172,39 +160,39 @@ const ClassicResume = ({ user }) => {
                     key.endsWith("_school_name")
                   ) {
                     const index = key.split("_")[1];
-                    const startDateMonth =
-                      user[`education_${index}_date_start_month`];
-                    const startDateYear =
-                      user[`education_${index}_date_start_year`];
-                    const endDateMonth =
-                      user[`education_${index}_date_end_month`];
-                    const endDateYear =
-                      user[`education_${index}_date_end_year`];
+                    const startDateMonthKey = `education_${index}_date_start_month`;
+                    const startDateYearKey = `education_${index}_date_start_year`;
+                    const endDateMonthKey = `education_${index}_date_end_month`;
+                    const endDateYearKey = `education_${index}_date_end_year`;
                     const schoolName = user[key] || "Unknown School";
-                    const schoolURL = user[`education_${index}_school_url`];
-                    const degreeName =
-                      user[`education_${index}_degree_name`] || "Degree: N/A";
-                    const fieldOfStudy =
-                      user[`education_${index}_field_of_study`] || "";
+                    const startDateMonth = user[startDateMonthKey] || "N/A";
+                    const startDateYear = user[startDateYearKey] || "N/A";
+                    const endDateMonth = user[endDateMonthKey] || "N/A";
+                    const endDateYear = user[endDateYearKey] || "N/A";
+                    const schoolURLKey = `education_${index}_school_url`;
+                    const degreeNameKey = `education_${index}_degree_name`;
+                    const fieldOfStudyKey = `education_${index}_field_of_study`;
+                    const degreeName = user[degreeNameKey] || "Degree: N/A";
+                    const fieldOfStudy = user[fieldOfStudyKey] || "";
 
                     return (
                       <li key={key}>
                         <h3>{schoolName}</h3>
                         <p>
-                          {startDateMonth}/{startDateYear} - {endDateMonth}/
-                          {endDateYear}
+                          {startDateMonth === "N/A" &&
+                          startDateYear === startDateMonth
+                            ? "N/A"
+                            : formatDate(startDateMonth, startDateYear)}
+                          {" - "}
+                          {endDateMonth === "N/A" &&
+                          endDateMonth === endDateYear
+                            ? "N/A"
+                            : formatDate(endDateMonth, endDateYear)}{" "}
                         </p>
                         <p>
                           <strong>{degreeName}</strong>
                         </p>
                         <p>{fieldOfStudy}</p>
-                        {schoolURL && (
-                          <p>
-                            <a href={schoolURL} target="_blank">
-                              School Website
-                            </a>
-                          </p>
-                        )}
                       </li>
                     );
                   }
@@ -213,6 +201,7 @@ const ClassicResume = ({ user }) => {
               </ul>
             </div>
           ) : null}
+
           {Object.keys(user).some(
             (key) => key.startsWith("courses_") && key.endsWith("_name")
           ) ? (
@@ -263,22 +252,38 @@ const ClassicResume = ({ user }) => {
                 <p className="bold">Certifications</p>
               </div>
               <ul>
-                {Object.keys(user).map((key) => {
-                  if (
-                    key.startsWith("certifications_") &&
-                    key.endsWith("_name")
-                  ) {
-                    return (
-                      <li key={key}>
-                        <h3>{user[key]}</h3>
-                      </li>
-                    );
-                  }
-                  return null; // Return null for non-course keys
-                })}
+                {Object.keys(user)
+                  .map((key) => {
+                    if (
+                      key.startsWith("certifications_") &&
+                      key.endsWith("company_name")
+                    ) {
+                      const certificationIndex = key.split("_")[1];
+                      const certificationName =
+                        user[`certifications_${certificationIndex}_name`];
+                      const companyName =
+                        user[
+                          `certifications_${certificationIndex}_company_name`
+                        ];
+                      return (
+                        <li key={key}>
+                          <h3>➡️ {certificationName}</h3>
+                          {companyName && (
+                            <p>
+                              <strong>Issued By : {companyName}</strong>
+                            </p>
+                          )}
+                        </li>
+                      );
+                    }
+                    return null; // Return null for non-certification name keys
+                  })
+                  .filter(Boolean)}{" "}
+                {/* Use filter(Boolean) to remove null values */}
               </ul>
             </div>
           ) : null}
+
           {Object.keys(user).some(
             (key) => key.startsWith("publications_") && key.endsWith("_name")
           ) ? (

@@ -2,6 +2,7 @@ import { ToastContainer } from 'react-toastify'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -9,7 +10,11 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/* <Head> */}
+        <link rel="shortcut icon" href="/fav.jpeg" type="image/x-icon" />
+      {/* </Head> */}
       <body className={inter.className}>{children}
+      
         <ToastContainer
           position="bottom-right"
           autoClose={3000}

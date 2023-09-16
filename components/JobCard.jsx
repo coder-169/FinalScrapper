@@ -107,7 +107,6 @@ const JobCard = ({ id }) => {
         },
       });
       const d = await res.json();
-      console.log(d);
       if (d.success) {
         setJob(d.job);
       }
