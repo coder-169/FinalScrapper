@@ -154,19 +154,19 @@ const ClassicResume = ({ user }) => {
               key.startsWith("education_") &&
               key.endsWith("_school_name") &&
               user[key] !== ""
-
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
                 <p className="bold">Education</p>
               </div>
               <ul>
-                {Object.keys(user).map((key,i) => {
+                {Object.keys(user).map((key, i) => {
                   if (
                     key.startsWith("education_") &&
-                    key.endsWith("_school_name") && user[key] !== ""
+                    key.endsWith("_school_name") &&
+                    user[key] !== ""
                   ) {
-                    console.log(key,i, 'dgree')
+                    console.log(key, i, "dgree");
 
                     const index = key.split("_")[1];
                     const startDateMonthKey = `education_${index}_date_start_month`;
@@ -273,15 +273,20 @@ const ClassicResume = ({ user }) => {
                   .map((key) => {
                     if (
                       key.startsWith("certifications_") &&
-                      key.endsWith("company_name")
+                      key.endsWith("_name")
                     ) {
                       const certificationIndex = key.split("_")[1];
                       const certificationName =
                         user[`certifications_${certificationIndex}_name`];
-                      const companyName =
+                      let companyName;
+                      if (
+                        key.startsWith("certifications_") &&
+                        key.endsWith("company_name")
+                      ) {
                         user[
                           `certifications_${certificationIndex}_company_name`
                         ];
+                      }
                       return (
                         <li key={key}>
                           <h3>➡️ {certificationName}</h3>
