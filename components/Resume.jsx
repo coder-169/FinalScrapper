@@ -47,7 +47,9 @@ const ClassicResume = ({ user }) => {
                 </li>
               </ul>
             </div>
-            {Object.keys(user).length > 0 && (
+            {Object.keys(user).some(
+              (key) => key.startsWith("skills_") && user[key] !== ""
+            ) ? (
               <div className="resume_item resume_skills">
                 <div className="title">
                   <p className="bold">skill&apos;s</p>
@@ -63,7 +65,7 @@ const ClassicResume = ({ user }) => {
                   })}
                 </ul>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
         <div className="resume_right">
@@ -74,7 +76,10 @@ const ClassicResume = ({ user }) => {
             <p>{user?.summary}</p>
           </div>
           {Object.keys(user).some(
-            (key) => key.startsWith("experiences_") && key.endsWith("_title")
+            (key) =>
+              key.startsWith("experiences_") &&
+              key.endsWith("_title") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -110,7 +115,6 @@ const ClassicResume = ({ user }) => {
                     const endDateMonth = user[endDateMonthKey] || "N/A";
                     const endDateYear = user[endDateYearKey] || "N/A";
                     const title = user[key] || "Title: N/A";
-
                     const companyURL = user[companyKey + "_url"] || "";
 
                     return (
@@ -147,18 +151,23 @@ const ClassicResume = ({ user }) => {
           ) : null}
           {Object.keys(user).some(
             (key) =>
-              key.startsWith("education_") && key.endsWith("_school_name")
+              key.startsWith("education_") &&
+              key.endsWith("_school_name") &&
+              user[key] !== ""
+
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
                 <p className="bold">Education</p>
               </div>
               <ul>
-                {Object.keys(user).map((key) => {
+                {Object.keys(user).map((key,i) => {
                   if (
                     key.startsWith("education_") &&
-                    key.endsWith("_school_name")
+                    key.endsWith("_school_name") && user[key] !== ""
                   ) {
+                    console.log(key,i, 'dgree')
+
                     const index = key.split("_")[1];
                     const startDateMonthKey = `education_${index}_date_start_month`;
                     const startDateYearKey = `education_${index}_date_start_year`;
@@ -169,7 +178,6 @@ const ClassicResume = ({ user }) => {
                     const startDateYear = user[startDateYearKey] || "N/A";
                     const endDateMonth = user[endDateMonthKey] || "N/A";
                     const endDateYear = user[endDateYearKey] || "N/A";
-                    const schoolURLKey = `education_${index}_school_url`;
                     const degreeNameKey = `education_${index}_degree_name`;
                     const fieldOfStudyKey = `education_${index}_field_of_study`;
                     const degreeName = user[degreeNameKey] || "Degree: N/A";
@@ -203,7 +211,10 @@ const ClassicResume = ({ user }) => {
           ) : null}
 
           {Object.keys(user).some(
-            (key) => key.startsWith("courses_") && key.endsWith("_name")
+            (key) =>
+              key.startsWith("courses_") &&
+              key.endsWith("_name") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -224,7 +235,10 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
-            (key) => key.startsWith("award__") && key.endsWith("_name")
+            (key) =>
+              key.startsWith("award_") &&
+              key.endsWith("_name") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -245,7 +259,10 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
-            (key) => key.startsWith("certifications_") && key.endsWith("_name")
+            (key) =>
+              key.startsWith("certifications_") &&
+              key.endsWith("_name") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -285,7 +302,10 @@ const ClassicResume = ({ user }) => {
           ) : null}
 
           {Object.keys(user).some(
-            (key) => key.startsWith("publications_") && key.endsWith("_name")
+            (key) =>
+              key.startsWith("publications_") &&
+              key.endsWith("_name") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -309,7 +329,10 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
-            (key) => key.startsWith("languages_") && key.endsWith("_name")
+            (key) =>
+              key.startsWith("languages_") &&
+              key.endsWith("_name") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -330,7 +353,10 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
-            (key) => key.startsWith("patents_") && key.endsWith("_name")
+            (key) =>
+              key.startsWith("patents_") &&
+              key.endsWith("_name") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -351,7 +377,10 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
-            (key) => key.startsWith("projects_") && key.endsWith("_title")
+            (key) =>
+              key.startsWith("projects_") &&
+              key.endsWith("_title") &&
+              user[key] !== ""
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
