@@ -351,7 +351,7 @@ const ClassicResume = ({ user }) => {
             </div>
           ) : null}
           {Object.keys(user).some(
-            (key) => key.startsWith("projects_") && key.endsWith("_name")
+            (key) => key.startsWith("projects_") && key.endsWith("_title")
           ) ? (
             <div className="resume_item resume_education">
               <div className="title">
@@ -359,10 +359,31 @@ const ClassicResume = ({ user }) => {
               </div>
               <ul>
                 {Object.keys(user).map((key) => {
-                  if (key.startsWith("projects_") && key.endsWith("_name")) {
+                  if (key.startsWith("projects_") && key.endsWith("_title")) {
+                    const index = key.split("_")[1];
+                    const startDateMonthKey = `projects_${index}_date_start_month`;
+                    const startDateYearKey = `projects_${index}_date_start_year`;
+                    const endDateMonthKey = `projects_${index}_date_end_month`;
+                    const endDateYearKey = `projects_${index}_date_end_year`;
+                    const startDateMonth = user[startDateMonthKey] || "N/A";
+                    const startDateYear = user[startDateYearKey] || "N/A";
+                    const endDateMonth = user[endDateMonthKey] || "N/A";
+                    const endDateYear = user[endDateYearKey] || "N/A";
+
                     return (
                       <li key={key}>
                         <h3>{user[key]}</h3>
+                        <p>
+                          {startDateMonth === "N/A" &&
+                          startDateYear === startDateMonth
+                            ? "N/A"
+                            : formatDate(startDateMonth, startDateYear)}
+                          {" - "}
+                          {endDateMonth === "N/A" &&
+                          endDateMonth === endDateYear
+                            ? "N/A"
+                            : formatDate(endDateMonth, endDateYear)}{" "}
+                        </p>
                       </li>
                     );
                   }
