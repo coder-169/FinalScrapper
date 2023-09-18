@@ -274,7 +274,7 @@ const ClassicResume = ({ user }) => {
                     .map((key) => {
                       if (
                         key.startsWith("certifications_") &&
-                        key.endsWith("company_name")
+                        key.endsWith("_company_name")
                       ) {
                         const certificationIndex = key.split("_")[1];
                         const certificationName =
@@ -282,7 +282,7 @@ const ClassicResume = ({ user }) => {
                         let companyName;
                         if (
                           key.startsWith("certifications_") &&
-                          key.endsWith("company_name")
+                          key.endsWith("_company")
                         ) {
                           companyName =
                             user[
@@ -298,6 +298,20 @@ const ClassicResume = ({ user }) => {
                                   <strong>Issued By : {companyName}</strong>
                                 </p>
                               )}
+                            </li>
+                          )
+                        );
+                      } else if (
+                        key.startsWith("certifications_") &&
+                        key.endsWith("_company")
+                      ) {
+                        const certificationIndex = key.split("_")[1];
+                        const certificationName =
+                          user[`certifications_${certificationIndex}_name`];
+                        return (
+                          certificationName && (
+                            <li key={key}>
+                              <h3>➡️ {certificationName}</h3>
                             </li>
                           )
                         );
