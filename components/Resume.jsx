@@ -282,7 +282,7 @@ const ClassicResume = ({ user }) => {
                         let companyName;
                         if (
                           key.startsWith("certifications_") &&
-                          key.endsWith("_company")
+                          key.endsWith("_company_name")
                         ) {
                           companyName =
                             user[
